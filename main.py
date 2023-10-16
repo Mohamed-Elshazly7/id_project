@@ -30,6 +30,8 @@ def signup():
         "password": new_password,
         "national_id": new_national_id,
     }
+
+    display_user_info(new_national_id)
     print("تمت إضافة المستخدم بنجاح!")
 
 
@@ -37,15 +39,15 @@ def extract_info_from_national_id(national_id):
     # الرقم الأول: قرن الميلاد
     century = int(national_id[0])
     # الأرقام الست التالية: تاريخ الميلاد
-    birth_date = national_id[1:3]+"/"+national_id[3:5]+"/"+national_id[5:7]
+    birth_date = national_id[5:7]+"/"+national_id[3:5]+"/"+national_id[1:3]
     # الرقمان التاليان: رقما محافظة الميلاد
     governorate_code = national_id[7:9]
     # الأرقام الأربعة التالية: أرقام لرقم مسلسل
     serial_number = national_id[9:13]
     # الرقم الأخير: رقم اختياري للتأكيد على صحة الرقم القومي
-    confirmation_digit = national_id[-1]
+    confirmation_digit = national_id[-2]
     # الرقم الثالث عشر: إذا كان زوجياً فالمستخدم ذكر وإذا كان فردياً فالمستخدم أنثى
-    gender = "انثى" if int(national_id[-3]) % 2 == 0 else "ذكر"
+    gender = "انثى" if int(national_id[-2]) % 2 == 0 else "ذكر"
     # كود المحافظة
     governorates = {
         "01": "القاهرة", "02": "الإسكندرية", "03": "بورسعيد", "04": "السويس", "11": "دمياط",
